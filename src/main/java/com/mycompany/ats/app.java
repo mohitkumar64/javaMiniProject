@@ -8,6 +8,7 @@ package com.mycompany.ats;
  *
  * @author Mohit kumar
  */
+import org.json.*;
 public class app extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(app.class.getName());
@@ -28,8 +29,12 @@ public class app extends javax.swing.JFrame {
         setContentPane(new DashboardPanel(this , user));
         revalidate();
     }
-     public void ShowAdminPanel() {
-        setContentPane(new AdminPanel(this));
+     public void ShowAdminPanel(User user) {
+        setContentPane(new AdminPanel(this, user));
+        revalidate();
+    }
+      public void ShowSummary(JSONObject data  , User user) {
+        setContentPane(new showSummary(this , data , user));
         revalidate();
     }
     public app() {
@@ -48,6 +53,7 @@ public class app extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ats Scanner");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));

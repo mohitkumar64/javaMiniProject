@@ -50,7 +50,7 @@ public class model {
 //                user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));
                 user.setRole(rs.getString("role"));
-                user.setStatus(rs.getBoolean("status"));
+                user.setStatus(rs.getString("status"));
                 
                 return user;
 
@@ -68,6 +68,71 @@ public class model {
         
     }
     
-    
-    
+public boolean approveUser(String id) {
+
+    try {
+
+        String query =
+                "UPDATE users SET status = ? WHERE id = ?";
+
+        PreparedStatement ps =
+                conn.prepareStatement(query);
+
+        ps.setString(1, "approved");
+
+        ps.setInt(2, Integer.parseInt(id));
+
+        int rows = ps.executeUpdate();
+
+        return rows > 0;
+
+    } catch (Exception e) {
+
+        System.out.println(e.getMessage());
+
+        return false;
+    }
 }
+    public boolean RejectUser(String id) {
+
+    try {
+
+        String query =
+                "UPDATE users SET status = ? WHERE id = ?";
+
+        PreparedStatement ps =
+                conn.prepareStatement(query);
+
+        ps.setString(1, "reject");
+
+        ps.setInt(2, Integer.parseInt(id));
+
+        int rows = ps.executeUpdate();
+
+        return rows > 0;
+
+    } catch (Exception e) {
+
+        System.out.println(e.getMessage());
+
+        return false;
+    }
+}
+    
+      public ResultSet getUser(){
+        try {
+            String query = "select* from users where status = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1 , "pending");
+            ResultSet rs = ps.executeQuery();
+            System.out.println(rs);
+            return rs;
+        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+        
+    
+    
+}}

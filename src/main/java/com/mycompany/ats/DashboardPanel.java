@@ -10,6 +10,7 @@ package com.mycompany.ats;
  */
 import javax.swing.*;
 import java.io.File;
+import org.json.*;
 public class DashboardPanel extends javax.swing.JPanel {
 
     /**
@@ -24,7 +25,9 @@ public class DashboardPanel extends javax.swing.JPanel {
         
         if(!user.getRole().equals("admin")){
         adminTab.setVisible(false);
+        
     }
+        p1.setVisible(false);
     }
 
     /**
@@ -40,6 +43,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         adminTab = new javax.swing.JButton();
         logout = new javax.swing.JButton();
+        p1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -47,7 +51,9 @@ public class DashboardPanel extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("User Dashboard");
 
-        jButton1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jButton1.setBackground(new java.awt.Color(51, 51, 255));
+        jButton1.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("choose your resume");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(this::jButton1ActionPerformed);
@@ -63,6 +69,10 @@ public class DashboardPanel extends javax.swing.JPanel {
         logout.setText("Log Out");
         logout.addActionListener(this::logoutActionPerformed);
 
+        p1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        p1.setForeground(new java.awt.Color(120, 120, 120));
+        p1.setText("Processing......");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,28 +83,33 @@ public class DashboardPanel extends javax.swing.JPanel {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(252, 252, 252)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
-                        .addComponent(adminTab))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(266, 266, 266)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(adminTab))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(279, 279, 279)
+                .addComponent(p1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(388, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(adminTab)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(adminTab))
-                .addGap(99, 99, 99)
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(88, 88, 88)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(p1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -125,8 +140,25 @@ public class DashboardPanel extends javax.swing.JPanel {
                     "file is selected" ,
                     "sucess",
                     JOptionPane.INFORMATION_MESSAGE
+                     );
+               p1.setVisible(true);
+               revalidate();
+                repaint();
+              ApiCall a = new ApiCall();
+              JSONObject atsData = a.getResponse(parsedText);
+              if(atsData !=null){
+                  frame.ShowSummary(atsData, user);
+              }else{
+                  JOptionPane.showMessageDialog(
+                    this ,
+                    "api call error " ,
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
                    
                      );
+                   p1.setVisible(false);
+                  
+              }
           }
 //          System.out.print(parsedText);
             
@@ -137,7 +169,7 @@ public class DashboardPanel extends javax.swing.JPanel {
 
     private void adminTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminTabActionPerformed
         // TODO add your handling code here:
-        frame.ShowAdminPanel();
+        frame.ShowAdminPanel(user);
     }//GEN-LAST:event_adminTabActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
@@ -151,5 +183,6 @@ public class DashboardPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton logout;
+    private javax.swing.JLabel p1;
     // End of variables declaration//GEN-END:variables
 }

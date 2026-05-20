@@ -11,7 +11,7 @@ package com.mycompany.ats;
 public class User {
     String email;
     String role;
-    boolean status;
+    String status;
     int id;
     
     public void setEmail(String e){
@@ -20,13 +20,13 @@ public class User {
     public void setRole(String e){
         role = e;
     }
-    public void setStatus(boolean e){
+    public void setStatus(String e){
         status = e;
     }
     public void setId(int e){
         id = e;
     }
-    public boolean isAllowed(){
+    public String isAllowed(){
         return status;
     }
     
