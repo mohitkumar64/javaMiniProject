@@ -1,6 +1,8 @@
 package com.mycompany.ats;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import org.json.*;
@@ -11,7 +13,7 @@ public class showSummary extends JPanel {
     JSONObject atsData;
     User user;
 
-    public showSummary(app frame, JSONObject data , User user) {
+    public showSummary(app frame, JSONObject data, User user) {
 
         this.frame = frame;
         this.atsData = data;
@@ -23,7 +25,7 @@ public class showSummary extends JPanel {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBackground(new Color(245, 245, 245));
         mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
-        
+
         JButton backButton = new JButton("← Back to Dashboard");
 
         backButton.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -37,17 +39,14 @@ public class showSummary extends JPanel {
         backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         backButton.setBorder(
-                BorderFactory.createEmptyBorder(10, 18, 10, 18)
-        );
-
-       
+                BorderFactory.createEmptyBorder(10, 18, 10, 18));
 
         backButton.addActionListener(e -> {
-            
-               frame.showDashboard(user);
+
+            frame.showDashboard(user);
 
         });
-        
+
         mainPanel.add(backButton);
         mainPanel.add(Box.createVerticalStrut(20));
 
@@ -60,8 +59,7 @@ public class showSummary extends JPanel {
 
             JPanel headerPanel = createCard();
 
-            JLabel scoreLabel =
-                    new JLabel("ATS Score: " + score + "/100");
+            JLabel scoreLabel = new JLabel("ATS Score: " + score + "/100");
 
             scoreLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
 
@@ -87,13 +85,22 @@ public class showSummary extends JPanel {
             JSONObject sections = atsData.getJSONObject("sections");
 
             String[] keys = {
-                "basic_info",
-                "structure",
-                "skills",
-                "experience",
-                "projects",
-                "keywords"
+                    "basic_info",
+                    "structure",
+                    "skills",
+                    "experience",
+                    "projects",
+                    "keywords"
             };
+
+            // Max scores for each section
+            Map<String, Integer> maxScores = new HashMap<>();
+            maxScores.put("basic_info", 10);
+            maxScores.put("structure", 15);
+            maxScores.put("skills", 25);
+            maxScores.put("experience", 20);
+            maxScores.put("projects", 15);
+            maxScores.put("keywords", 15);
 
             for (String key : keys) {
 
@@ -104,8 +111,7 @@ public class showSummary extends JPanel {
                 // ===== TITLE =====
 
                 JLabel title = new JLabel(
-                        key.replace("_", " ").toUpperCase()
-                );
+                        key.replace("_", " ").toUpperCase());
 
                 title.setFont(new Font("SansSerif", Font.BOLD, 22));
                 title.setForeground(new Color(33, 33, 33));
@@ -118,10 +124,10 @@ public class showSummary extends JPanel {
                 // ===== SCORE =====
 
                 int sectionScore = section.getInt("score");
+                int maxScore = maxScores.getOrDefault(key, 0);
 
                 JLabel scoreText = new JLabel(
-                        "Section Score: " + sectionScore
-                );
+                        "Section Score: " + sectionScore + " / " + maxScore);
 
                 scoreText.setFont(new Font("SansSerif", Font.BOLD, 16));
                 scoreText.setForeground(new Color(25, 118, 210));
@@ -136,9 +142,8 @@ public class showSummary extends JPanel {
 
                     JLabel match = new JLabel(
                             "Skill Match: "
-                            + section.getInt("match_percentage")
-                            + "%"
-                    );
+                                    + section.getInt("match_percentage")
+                                    + "%");
 
                     match.setFont(new Font("SansSerif", Font.PLAIN, 15));
                     match.setForeground(new Color(56, 142, 60));
@@ -158,8 +163,7 @@ public class showSummary extends JPanel {
                     card.add(Box.createVerticalStrut(15));
 
                     JLabel issueTitle = createHeading("Issues");
-                    JTextArea issueArea =
-                            createTextArea(buildBulletText(issues));
+                    JTextArea issueArea = createTextArea(buildBulletText(issues));
 
                     card.add(issueTitle);
                     card.add(Box.createVerticalStrut(5));
@@ -175,8 +179,7 @@ public class showSummary extends JPanel {
                     card.add(Box.createVerticalStrut(15));
 
                     JLabel adviceTitle = createHeading("Advice");
-                    JTextArea adviceArea =
-                            createTextArea(buildBulletText(advice));
+                    JTextArea adviceArea = createTextArea(buildBulletText(advice));
 
                     card.add(adviceTitle);
                     card.add(Box.createVerticalStrut(5));
@@ -187,16 +190,13 @@ public class showSummary extends JPanel {
 
                 if (section.has("missing_skills")) {
 
-                    JSONArray missing =
-                            section.getJSONArray("missing_skills");
+                    JSONArray missing = section.getJSONArray("missing_skills");
 
                     card.add(Box.createVerticalStrut(15));
 
-                    JLabel missingTitle =
-                            createHeading("Missing Skills");
+                    JLabel missingTitle = createHeading("Missing Skills");
 
-                    JTextArea missingArea =
-                            createTextArea(buildBulletText(missing));
+                    JTextArea missingArea = createTextArea(buildBulletText(missing));
 
                     card.add(missingTitle);
                     card.add(Box.createVerticalStrut(5));
@@ -207,16 +207,13 @@ public class showSummary extends JPanel {
 
                 if (section.has("missing_keywords")) {
 
-                    JSONArray keywords =
-                            section.getJSONArray("missing_keywords");
+                    JSONArray keywords = section.getJSONArray("missing_keywords");
 
                     card.add(Box.createVerticalStrut(15));
 
-                    JLabel keywordTitle =
-                            createHeading("Missing Keywords");
+                    JLabel keywordTitle = createHeading("Missing Keywords");
 
-                    JTextArea keywordArea =
-                            createTextArea(buildBulletText(keywords));
+                    JTextArea keywordArea = createTextArea(buildBulletText(keywords));
 
                     card.add(keywordTitle);
                     card.add(Box.createVerticalStrut(5));
@@ -256,11 +253,8 @@ public class showSummary extends JPanel {
         panel.setBorder(
                 BorderFactory.createCompoundBorder(
                         BorderFactory.createLineBorder(
-                                new Color(220, 220, 220)
-                        ),
-                        new EmptyBorder(18, 18, 18, 18)
-                )
-        );
+                                new Color(220, 220, 220)),
+                        new EmptyBorder(18, 18, 18, 18)));
 
         panel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -287,8 +281,7 @@ public class showSummary extends JPanel {
         area.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         area.setMaximumSize(
-                new Dimension(Integer.MAX_VALUE, 120)
-        );
+                new Dimension(Integer.MAX_VALUE, 120));
 
         return area;
     }
@@ -317,8 +310,8 @@ public class showSummary extends JPanel {
         for (int i = 0; i < array.length(); i++) {
 
             sb.append("• ")
-              .append(array.getString(i))
-              .append("\n");
+                    .append(array.getString(i))
+                    .append("\n");
         }
 
         return sb.toString();

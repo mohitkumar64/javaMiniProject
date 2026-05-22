@@ -3,6 +3,7 @@
  */
 
 package com.mycompany.ats;
+
 import java.sql.*;
 
 /**
@@ -13,17 +14,16 @@ public class ATS {
 
     public static void main(String[] args) {
         ConnectionDB conc = new ConnectionDB();
-        try{
+        try {
             Connection con = conc.ConnectionDb();
             app frame = new app();
-            frame.showRegister();   
-            
+            frame.showRegister();
+
             frame.pack();
             frame.setVisible(true);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("error" + e.getMessage());
         }
-        
-   
+
     }
 }
