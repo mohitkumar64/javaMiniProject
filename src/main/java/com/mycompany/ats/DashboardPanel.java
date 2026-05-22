@@ -27,7 +27,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         adminTab.setVisible(false);
         
     }
-        p1.setVisible(false);
+        
     }
 
     /**
@@ -43,7 +43,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         adminTab = new javax.swing.JButton();
         logout = new javax.swing.JButton();
-        p1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -59,8 +59,10 @@ public class DashboardPanel extends javax.swing.JPanel {
         jButton1.addActionListener(this::jButton1ActionPerformed);
 
         adminTab.setBackground(new java.awt.Color(204, 204, 204));
-        adminTab.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        adminTab.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        adminTab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/ats/image/adminlogo.png"))); // NOI18N
         adminTab.setText("Admin Panel");
+        adminTab.setIconTextGap(10);
         adminTab.addActionListener(this::adminTabActionPerformed);
 
         logout.setBackground(new java.awt.Color(153, 153, 0));
@@ -69,50 +71,60 @@ public class DashboardPanel extends javax.swing.JPanel {
         logout.setText("Log Out");
         logout.addActionListener(this::logoutActionPerformed);
 
-        p1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        p1.setForeground(new java.awt.Color(120, 120, 120));
-        p1.setText("Processing......");
+        jLabel2.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/ats/image/upload-svgrepo-com (1).png"))); // NOI18N
+        jLabel2.setLabelFor(jButton1);
+        jLabel2.setText("Choose your resume");
+        jLabel2.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIconTextGap(0);
+        jLabel2.setName(""); // NOI18N
+        jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(0, 175, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(adminTab))
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(279, 279, 279)
-                .addComponent(p1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(388, Short.MAX_VALUE))
+                                .addGap(92, 92, 92)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(94, 94, 94)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(60, 60, 60)
+                        .addComponent(adminTab, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(adminTab)
+                    .addComponent(adminTab, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(88, 88, 88)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(p1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
-                .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(logout)
+                .addGap(17, 17, 17))
         );
+
+        jLabel2.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -141,7 +153,7 @@ public class DashboardPanel extends javax.swing.JPanel {
                     "sucess",
                     JOptionPane.INFORMATION_MESSAGE
                      );
-               p1.setVisible(true);
+              
                revalidate();
                 repaint();
               ApiCall a = new ApiCall();
@@ -156,7 +168,7 @@ public class DashboardPanel extends javax.swing.JPanel {
                     JOptionPane.ERROR_MESSAGE
                    
                      );
-                   p1.setVisible(false);
+                   
                   
               }
           }
@@ -182,7 +194,7 @@ public class DashboardPanel extends javax.swing.JPanel {
     private javax.swing.JButton adminTab;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton logout;
-    private javax.swing.JLabel p1;
     // End of variables declaration//GEN-END:variables
 }

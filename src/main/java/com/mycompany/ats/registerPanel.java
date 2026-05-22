@@ -9,6 +9,7 @@ package com.mycompany.ats;
  * @author Mohit kumar
  */
 import javax.swing.*;
+import java.net.URL;
 public class registerPanel extends javax.swing.JPanel {
 
     /**
@@ -18,6 +19,11 @@ public class registerPanel extends javax.swing.JPanel {
     public registerPanel(app frame) {
         initComponents();
         this.frame = frame;
+        URL url = getClass().getResource("/com/mycompany/ats/image/adminlogo.png");
+         System.out.println(
+    getClass().getResource("/com/mycompany/ats/log.png")
+);
+        System.out.println(url);
     }
 
     /**     * This method is called from within the constructor to initialize the form.
@@ -92,13 +98,13 @@ public class registerPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(268, 268, 268)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(176, 176, 176))
+                .addGap(222, 222, 222))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
